@@ -1,0 +1,16 @@
+name:                aoc2019 
+version:             0.1.0.0
+github:              "biljazovic/Advent-Of-Code-2019-Haskell"
+license:             BSD3
+author:              "Bruno Iljazovic"
+maintainer:          "bruno.iljazovic@gmail.com"
+copyright:           "2019 Bruno Iljazovic"
+
+dependencies:
+- base >= 4.7 && < 5
+- random
+- containers
+
+library:
+  source-dirs: src
+
