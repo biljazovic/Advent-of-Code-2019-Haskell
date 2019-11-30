@@ -29,4 +29,3 @@ main1 = do
   input <- parse <$> readFile "res/input1"
   print $ solve1 input
   --print $ solve2 input 
-
