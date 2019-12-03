@@ -30,7 +30,6 @@ evaluate noun verb xs = seqf `index` 0 where
   seq0 = update 2 verb (update 1 noun (fromList xs))
   (seqf, _) = fromJust $ find (\(seq, pos) -> seq `index` pos == 99) $ iterate step (seq0, 0)
 
-
 solve1 :: IT -> Int
 solve1 = evaluate 12 2
 
