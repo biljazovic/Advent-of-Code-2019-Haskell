@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: e3dc55e7a8dc0269d35bc32b84f1b145d4986634653cc8995323cd66a581cdd9
+-- hash: e14c381da12363641cb4ed447bea292521b81ad5f55edaed24f79f5b25b1738c
 
 name:           aoc2019
 version:        0.1.0.0
@@ -26,6 +26,8 @@ library
       Day2
       Day3
       Day4
+      Day5
+      Day6
   other-modules:
       Paths_aoc2019
   hs-source-dirs:
@@ -33,7 +35,9 @@ library
   build-depends:
       base >=4.7 && <5
     , containers
+    , lens
     , megaparsec
     , random
     , split
+    , transformers
   default-language: Haskell2010

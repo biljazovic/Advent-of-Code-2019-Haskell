@@ -12,6 +12,8 @@ dependencies:
 - containers
 - split
 - megaparsec
+- lens
+- transformers
 
 library:
   source-dirs: src
