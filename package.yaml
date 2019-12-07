@@ -13,9 +13,12 @@ dependencies:
 - split
 - megaparsec
 - lens
-- transformers
 - mtl
 
 library:
   source-dirs: src
 
+executables:
+  aoc2019:
+    main: Main.hs
+    source-dirs: src/
