@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: e14c381da12363641cb4ed447bea292521b81ad5f55edaed24f79f5b25b1738c
+-- hash: 15c3371a40c69e4ec6b6cc25783f578e944cd563b3fb498c07a7672532b39cc1
 
 name:           aoc2019
 version:        0.1.0.0
@@ -28,6 +28,8 @@ library
       Day4
       Day5
       Day6
+      Day7
+      IntCode
   other-modules:
       Paths_aoc2019
   hs-source-dirs:
@@ -37,6 +39,7 @@ library
     , containers
     , lens
     , megaparsec
+    , mtl
     , random
     , split
     , transformers
