@@ -1,6 +1,3 @@
-{-# LANGUAGE LambdaCase      #-}
-{-# LANGUAGE TemplateHaskell #-}
-{-# LANGUAGE FlexibleContexts #-}
 module IntCode where
 
 import Data.Sequence (Seq, update, index, fromList)
@@ -22,7 +19,7 @@ fromLeft (Left a) = a
 
 stepInstr :: Int -> [Either Int Int] -> State XD Status
 stepInstr opcode (a:b:c:_) = do
-  board' <- _board <$> get 
+  board' <- gets _board 
   let eval = either (board' `index`) id 
   let binInstr f = do
         modify $ over board (update (fromLeft c) (f (eval a) (eval b)))
@@ -39,7 +36,7 @@ stepInstr opcode (a:b:c:_) = do
     1 -> binInstr (+)
     2 -> binInstr (*)
     3 -> do
-      inputValue <- (head . _input) <$> get
+      inputValue <- gets (head . _input)
       modify $ over board (update (fromLeft a) inputValue)
       modify $ over input tail
       modify $ over pos (+1)
@@ -55,8 +52,8 @@ stepInstr opcode (a:b:c:_) = do
 
 evaluate :: State XD Status
 evaluate = do
-  board' <- _board <$> get
-  pos' <- _pos <$> get
+  board' <- gets _board
+  pos' <- gets _pos
   let opcode = board' `index` pos'
       instrCode = opcode `mod` 100
       paramModes = map (`mod` 10) (iterate (`div` 10) (opcode `div` 100))
@@ -73,8 +70,6 @@ evaluateUntilHaltWithInput inStack xs = runState go xd0 where
     status <- evaluate
     case status of
       Halt -> return []
-      Out x -> do
-        xs <- go
-        return (x : xs)
+      Out x -> (x:) <$> go
       Continue -> go
   xd0 = XD (fromList xs) 0 inStack

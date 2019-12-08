@@ -14,11 +14,13 @@ dependencies:
 - megaparsec
 - lens
 - mtl
+- JuicyPixels
+- vector
 
 library:
   source-dirs: src
 
-executables:
-  aoc2019:
-    main: Main.hs
-    source-dirs: src/
+default-extensions:
+- LambdaCase
+- FlexibleContexts
+- TemplateHaskell

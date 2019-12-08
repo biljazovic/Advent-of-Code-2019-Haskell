@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: b8f04cda23339fe609c23867c762d131922202babdcda031443fca7537a6a261
+-- hash: a89b41c563b337a03bdc98d7740c0b12b17fb22ada7986bd479f18c79d0aa228
 
 name:           aoc2019
 version:        0.1.0.0
@@ -29,42 +29,22 @@ library
       Day5
       Day6
       Day7
+      Day8
       IntCode
       Main
   other-modules:
       Paths_aoc2019
   hs-source-dirs:
       src
+  default-extensions: LambdaCase FlexibleContexts TemplateHaskell
   build-depends:
-      base >=4.7 && <5
+      JuicyPixels
+    , base >=4.7 && <5
     , containers
     , lens
     , megaparsec
     , mtl
     , random
     , split
-  default-language: Haskell2010
-
-executable aoc2019
-  main-is: Main.hs
-  other-modules:
-      Day1
-      Day2
-      Day3
-      Day4
-      Day5
-      Day6
-      Day7
-      IntCode
-      Paths_aoc2019
-  hs-source-dirs:
-      src/
-  build-depends:
-      base >=4.7 && <5
-    , containers
-    , lens
-    , megaparsec
-    , mtl
-    , random
-    , split
+    , vector
   default-language: Haskell2010
