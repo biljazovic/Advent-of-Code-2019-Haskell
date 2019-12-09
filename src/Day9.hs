@@ -1,4 +1,4 @@
-module Day5 (main5) where
+module Day9 (main9) where
 
 import IntCode (parse, evaluateUntilHaltWithInput)
 
@@ -8,11 +8,11 @@ solve1 :: IT -> [Integer]
 solve1 = fst . evaluateUntilHaltWithInput [1]
 
 solve2 :: IT -> [Integer]
-solve2 = fst . evaluateUntilHaltWithInput [5]
+solve2 = fst . evaluateUntilHaltWithInput [2]
 
-main5 :: IO ()
-main5 = do
-  input <- parse <$> readFile "res/input5"
+main9 :: IO ()
+main9 = do
+  input <- parse <$> readFile "res/input9"
   print $ solve1 input
   print $ solve2 input
 

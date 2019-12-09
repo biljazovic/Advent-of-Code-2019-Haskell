@@ -5,17 +5,17 @@ import Control.Monad (guard)
 import IntCode (evaluateUntilHaltWithInput, parse, _board)
 import Data.Foldable (toList)
 
-type IT = [Int]
+type IT = [Integer]
 
-evaluate :: Int -> Int -> IT -> Int
+evaluate :: Integer -> Integer -> IT -> Integer
 evaluate noun verb xs = ((`index` 0) . _board) xdf where
   seq0 = update 2 verb (update 1 noun (fromList xs))
   (_, xdf) = evaluateUntilHaltWithInput [] (toList seq0)
 
-solve1 :: IT -> Int
+solve1 :: IT -> Integer
 solve1 = evaluate 12 2
 
-solve2 :: IT -> Int
+solve2 :: IT -> Integer
 solve2 xs = head $ do
   noun <- [0..99]
   verb <- [0..99]
