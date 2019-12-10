@@ -16,6 +16,7 @@ dependencies:
 - mtl
 - JuicyPixels
 - vector
+- linear
 
 library:
   source-dirs: src
