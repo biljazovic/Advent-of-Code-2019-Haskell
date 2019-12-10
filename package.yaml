@@ -16,11 +16,20 @@ dependencies:
 - mtl
 - JuicyPixels
 - vector
+- linear
+- semigroups
 
 library:
-  source-dirs: src
+  source-dirs: src/
 
 default-extensions:
 - LambdaCase
 - FlexibleContexts
 - TemplateHaskell
+
+executables:
+  aoc2019:
+    main: Main.hs
+    source-dirs: ./
+    dependencies:
+    - aoc2019
