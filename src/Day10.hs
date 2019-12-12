@@ -4,7 +4,7 @@ import Data.Set (Set)
 import qualified Data.Set as Set
 import Linear.V2
 import Data.Ord (Ordering(..), compare, comparing)
-import Data.List (sortBy, groupBy, maximumBy, delete, uncons)
+import Data.List (sortOn, sortBy, groupBy, maximumBy, delete, uncons)
 import Data.Maybe (mapMaybe)
 
 type IT = [V2 Int]
@@ -41,7 +41,7 @@ solve2 input = 100 * solx + soly
     go n trak'
       | n >= length trak' = go (n - length trak') $ map snd $ mapMaybe uncons trak'
       | otherwise = head (trak' !! n)
-    trak = map (sortBy (comparing (sum . fmap abs . ((-) centre)))) (f centre)
+    trak = map (sortOn (sum . fmap abs . (centre -))) (f centre)
     centre = maximumBy (comparing (length . f)) input 
     f x = groupBy (\a b -> order x a b == EQ) $ sortBy (order x) (delete x input)
 

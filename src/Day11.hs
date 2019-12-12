@@ -28,7 +28,7 @@ solve startingColor xs = finalMap where
     newMapa = Map.insert pos color mapa
     newDir = case turn of
                1 -> nxt dir
-               0 -> nxt $ nxt $ nxt $ dir
+               0 -> nxt $ nxt $ nxt dir
     nxt = \case
       V2 0 1 -> V2 (-1) 0
       V2 (-1) 0 -> V2 0 (-1)
@@ -38,7 +38,7 @@ solve startingColor xs = finalMap where
 solve1 :: IT -> Int
 solve1 = Map.size . solve 0
 
-solve2 :: IT -> Image (Pixel8)
+solve2 :: IT -> Image Pixel8
 solve2 xs = generateImage f (maxX-minX+1) (maxY-minY+1) where
   f x y = fromIntegral $ (*255) $ Map.findWithDefault 0 (V2 (x+minX) (y+minY)) mapa
   mapa = solve 1 xs

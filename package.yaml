@@ -26,6 +26,7 @@ default-extensions:
 - LambdaCase
 - FlexibleContexts
 - TemplateHaskell
+- TupleSections
 
 executables:
   aoc2019:

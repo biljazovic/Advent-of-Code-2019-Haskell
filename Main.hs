@@ -1,5 +1,5 @@
 module Main where
 
-import Day11 (main11)
+import Day12 (main12)
 
-main = main11
+main = main12
