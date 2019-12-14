@@ -1,5 +1,6 @@
 module Main where
 
-import Day12 (main12)
+import Graphics.Gloss
+import Day14 (main14)
 
-main = main12
+main = main14
