@@ -19,6 +19,7 @@ dependencies:
 - linear
 - semigroups
 - gloss
+- fgl
 
 library:
   source-dirs: src/

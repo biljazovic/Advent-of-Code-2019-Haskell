@@ -8,11 +8,8 @@ import Linear.V2
 import Data.Map.Lazy (Map)
 import qualified Data.Map.Lazy as Map
 import Data.List.Split (chunksOf)
-import Debug.Trace (trace)
-import Data.Vector.Storable (fromList)
-import qualified Data.Set as Set
-import Codec.Picture
-import Control.Lens ((^.))
+import Util (generateBlackAndWhiteImage)
+import Codec.Picture (PixelRGB8(..))
 
 type IT = [Integer]
 
@@ -38,19 +35,14 @@ solve startingColor xs = finalMap where
 solve1 :: IT -> Int
 solve1 = Map.size . solve 0
 
-solve2 :: IT -> Image Pixel8
-solve2 xs = generateImage f (maxX-minX+1) (maxY-minY+1) where
-  f x y = fromIntegral $ (*255) $ Map.findWithDefault 0 (V2 (x+minX) (y+minY)) mapa
-  mapa = solve 1 xs
-  coords = Map.keysSet mapa
-  coordsx = Set.map (^. _x) coords
-  coordsy = Set.map (^. _y) coords
-  [minX, maxX] = map ($ coordsx) [Set.findMin, Set.findMax]
-  [minY, maxY] = map ($ coordsy) [Set.findMin, Set.findMax]
+solve2 :: IT -> Map (V2 Int) Integer
+solve2 = solve 1
 
+toColor x = PixelRGB8 y y y where
+  y = fromIntegral x * 255
 
 main11 :: IO ()
 main11 = do
   input <- parse <$> readFile "res/input11"
   print $ solve1 input
-  saveBmpImage "res/output11.bmp" $ ImageY8 $ solve2 input
+  generateBlackAndWhiteImage "res/output11.bmp" 0 (solve2 input) toColor
