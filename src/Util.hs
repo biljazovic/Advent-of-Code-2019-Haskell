@@ -1,4 +1,4 @@
-module Util (generateGraph, generateBlackAndWhiteImage) where
+module Util (generateGraph, generateBlackAndWhiteImage, susedi) where
 
 import Codec.Picture
 import Control.Lens ((^.))
