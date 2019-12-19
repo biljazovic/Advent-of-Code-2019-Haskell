@@ -1,7 +1,7 @@
 module Day17 (main17) where
 
 import IntCode (parse, evaluateUntilHaltWithInput)
-import Util (susedi)
+import Util (susedi, generateMap, findInMap)
 import Data.Map (Map)
 import qualified Data.Map as Map
 import Data.Char (chr, ord)
@@ -13,10 +13,9 @@ import Data.List (lookup, group, intersperse)
 
 type IT = [Integer]
 
-generateMap :: IT -> Map (V2 Int) Char
-generateMap xs = grid where
+generateMap' :: IT -> Map (V2 Int) Char
+generateMap' xs = generateMap output where
   output = map (chr . fromIntegral) . fst $ evaluateUntilHaltWithInput [] xs
-  grid = Map.fromList . concat . zipWith (\j ics -> map (\(i, c) -> (V2 i j, c)) ics) [0..] . map (zip [0..]) $ lines output
 
 solve1 :: Map (V2 Int) Char -> Int
 solve1 grid = sum . map product $ filter isCross (Map.keys grid) where
@@ -30,7 +29,7 @@ solve2 grid = groupedCode where
   groupedCode = concat $ map g $ group code
   g cs = if length cs == 1 then cs else show $ length cs
   code = fromJust $ go initPos (fromJust $ lookup (grid Map.! initPos) dirs)
-  initPos = fst . head . filter ((`elem` (map fst dirs)) . snd) . Map.toList $ grid
+  initPos = findInMap (map fst dirs) grid
   right (V2 x y) = V2 (-y) x
   left = right . right . right
   go pos dir = let f dir' = do
@@ -46,7 +45,7 @@ solve2 grid = groupedCode where
 main17 :: IO ()
 main17 = do
   input <- parse <$> readFile "res/input17"
-  let grid = generateMap input
+  let grid = generateMap' input
   print $ solve1 grid -- part 1 solution
   print $ solve2 grid -- only generates movement instructions
   sol <- map (fromIntegral . ord) <$> readFile "res/output17" -- generated manually with vim

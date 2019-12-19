@@ -1,4 +1,4 @@
-module Util (generateGraph, generateBlackAndWhiteImage, susedi) where
+module Util (generateMap, generateGraph, generateBlackAndWhiteImage, susedi, findInMap) where
 
 import Codec.Picture
 import Control.Lens ((^.))
@@ -37,3 +37,11 @@ generateGraph mapa = (mkGraph nodes edges, indexMap) where
       tip <- Map.lookup sused mapa
       guard (tip > 0)
       return (indexMap Map.! coord, indexMap Map.! sused, 1)
+
+generateMap :: String -> Map (V2 Int) Char
+generateMap input = grid where
+  grid = Map.fromList . concat . zipWith f [0..] . map (zip [0..]) $ lines input
+  f j ics = map (\(i, c) -> (V2 i j, c)) ics
+
+findInMap :: Ord k => Eq a => [a] -> Map k a -> k
+findInMap list mapa = fst . head . filter ((`elem` list) . snd) . Map.toList $ mapa
