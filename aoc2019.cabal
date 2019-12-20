@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 347e765ed84efa122f6b21e4887aca16dff5efa514d617692ddd2c83557c1f58
+-- hash: f115fde4edbaa0bdff4bb53260d9795d31a1e0acc6b95a82432eb4e5e8be0c82
 
 name:           aoc2019
 version:        0.1.0.0
@@ -34,6 +34,7 @@ library
       Day18
       Day19
       Day2
+      Day20
       Day3
       Day4
       Day5
@@ -50,6 +51,7 @@ library
   default-extensions: LambdaCase FlexibleContexts TemplateHaskell TupleSections
   build-depends:
       JuicyPixels
+    , array
     , base >=4.7 && <5
     , containers
     , fgl
@@ -74,6 +76,7 @@ executable aoc2019
   build-depends:
       JuicyPixels
     , aoc2019
+    , array
     , base >=4.7 && <5
     , containers
     , fgl
