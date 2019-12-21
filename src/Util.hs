@@ -1,6 +1,6 @@
 {-# LANGUAGE ViewPatterns #-}
 
-module Util (generateMap, generateGraph, generateBlackAndWhiteImage, susedi, findInMap, genericBfs) where
+module Util (generateMap, generateGraph, generateBlackAndWhiteImage, susedi, findInMap, genericBfs, findInArray) where
 
 import Codec.Picture
 import Control.Lens ((^.))
@@ -18,6 +18,8 @@ import Data.Set (Set)
 import qualified Data.Set as Set
 import Data.Sequence (Seq)
 import qualified Data.Sequence as Seq
+import Data.Array.Unboxed
+import Data.Ix
 
 generateBlackAndWhiteImage :: String -> a -> Map (V2 Int) a -> (a -> PixelRGB8) -> IO ()
 generateBlackAndWhiteImage filename defaultValue mapa toColor = saveBmpImage filename image where
@@ -49,8 +51,11 @@ generateMap input = grid where
   grid = Map.fromList . concat . zipWith f [0..] . map (zip [0..]) $ lines input
   f j ics = map (\(i, c) -> (V2 i j, c)) ics
 
-findInMap :: Ord k => Eq a => [a] -> Map k a -> k
-findInMap list mapa = fst . head . filter ((`elem` list) . snd) . Map.toList $ mapa
+findInMap :: (Ord k, Eq a) => [a] -> Map k a -> k
+findInMap list = fst . head . filter ((`elem` list) . snd) . Map.toList
+
+findInArray :: (IArray a e, Ix i, Eq e) => [e] -> a i e -> i
+findInArray list = fst . head . filter ((`elem` list) . snd) . assocs
 
 genericBfs :: Ord a => (a -> Bool)       -- goal
                     -> (a -> [a])        -- neighbors
