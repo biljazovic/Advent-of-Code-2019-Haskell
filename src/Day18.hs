@@ -1,5 +1,3 @@
-{-# LANGUAGE ViewPatterns #-}
-
 module Day18 (main18) where
 
 import Util (generateMap, findInMap, susedi, genericBfs, findInArray)

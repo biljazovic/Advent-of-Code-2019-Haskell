@@ -21,6 +21,8 @@ dependencies:
 - gloss
 - fgl
 - array
+- memoize
+- modular-arithmetic
 
 library:
   source-dirs: src/
@@ -30,6 +32,7 @@ default-extensions:
 - FlexibleContexts
 - TemplateHaskell
 - TupleSections
+- ViewPatterns
 
 executables:
   aoc2019:

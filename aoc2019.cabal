@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 0a3f09ef2a499fc1e653cb1c5e3490455827ba84f6e4221b713bfd1c4185b38f
+-- hash: c301a0ae881c517a9479841e670314f61eba17bb48938f1f635c5b3d757a899f
 
 name:           aoc2019
 version:        0.1.0.0
@@ -36,6 +36,7 @@ library
       Day2
       Day20
       Day21
+      Day22
       Day3
       Day4
       Day5
@@ -49,7 +50,7 @@ library
       Paths_aoc2019
   hs-source-dirs:
       src/
-  default-extensions: LambdaCase FlexibleContexts TemplateHaskell TupleSections
+  default-extensions: LambdaCase FlexibleContexts TemplateHaskell TupleSections ViewPatterns
   build-depends:
       JuicyPixels
     , array
@@ -60,6 +61,8 @@ library
     , lens
     , linear
     , megaparsec
+    , memoize
+    , modular-arithmetic
     , mtl
     , random
     , semigroups
@@ -73,7 +76,7 @@ executable aoc2019
       Paths_aoc2019
   hs-source-dirs:
       ./
-  default-extensions: LambdaCase FlexibleContexts TemplateHaskell TupleSections
+  default-extensions: LambdaCase FlexibleContexts TemplateHaskell TupleSections ViewPatterns
   build-depends:
       JuicyPixels
     , aoc2019
@@ -85,6 +88,8 @@ executable aoc2019
     , lens
     , linear
     , megaparsec
+    , memoize
+    , modular-arithmetic
     , mtl
     , random
     , semigroups

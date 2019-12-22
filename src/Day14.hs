@@ -43,7 +43,7 @@ binarySearch f low high
                    else binarySearch f (mid+1) high
 
 solve2 :: IT -> Maybe Integer
-solve2 svi = fmap (+ (-1)) $ binarySearch ((> 1000000000000) . flip solve svi) 1 1000000000000
+solve2 svi = (+ (-1)) <$> binarySearch ((> 1000000000000) . flip solve svi) 1 1000000000000
 
 main14 :: IO ()
 main14 = do

@@ -1,5 +1,3 @@
-{-# LANGUAGE ViewPatterns #-}
-
 module Util (generateMap, generateGraph, generateBlackAndWhiteImage, susedi, findInMap, genericBfs, findInArray) where
 
 import Codec.Picture
@@ -14,8 +12,6 @@ import Data.Graph.Inductive.PatriciaTree
 import Data.Graph.Inductive.Query.SP
 import Data.Maybe (mapMaybe)
 import Control.Monad (guard)
-import Data.Set (Set)
-import qualified Data.Set as Set
 import Data.Sequence (Seq)
 import qualified Data.Sequence as Seq
 import Data.Array.Unboxed
@@ -49,7 +45,7 @@ generateGraph mapa = (mkGraph nodes edges, indexMap) where
 generateMap :: String -> Map (V2 Int) Char
 generateMap input = grid where
   grid = Map.fromList . concat . zipWith f [0..] . map (zip [0..]) $ lines input
-  f j ics = map (\(i, c) -> (V2 i j, c)) ics
+  f j = map (\(i, c) -> (V2 i j, c))
 
 findInMap :: (Ord k, Eq a) => [a] -> Map k a -> k
 findInMap list = fst . head . filter ((`elem` list) . snd) . Map.toList

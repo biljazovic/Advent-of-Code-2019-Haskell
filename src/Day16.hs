@@ -1,4 +1,3 @@
-{-# LANGUAGE BangPatterns #-}
 module Day16 (main16) where
 
 import Data.Char (digitToInt)
@@ -10,7 +9,7 @@ parse :: String -> IT
 parse = map digitToInt . head . lines
 
 step :: [Int] -> [Int]
-step xs = map f (zip xs [1..]) where
+step xs = zipWith (curry f) xs [1..] where
   f (x, i) = (`mod` 10) . abs . sum $ zipWith (*) xs (tail $ concatMap (replicate i) $ cycle [0,1,0,-1])
   n = length xs
 

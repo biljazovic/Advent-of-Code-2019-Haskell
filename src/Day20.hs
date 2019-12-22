@@ -38,10 +38,10 @@ solve1 grid = genericBfs goal neighs start
     goalPos = head $ portals Map.! "ZZ"
     start = head $ portals Map.! "AA"
     neighs pos = filter ((== '.') . indexWithDefault '#' grid) (susedi pos) ++ fromMaybe [] (buddy pos)
-    buddy pos = fmap (\portal -> filter (/= pos) $ portals Map.! portal) $ getPortal grid pos
+    buddy pos = (\portal -> filter (/= pos) $ portals Map.! portal) <$> getPortal grid pos
 
 isOuter :: (V2 Int, V2 Int) -> V2 Int -> Bool
-isOuter ((V2 smalx smaly), (V2 bigx bigy)) (V2 posx posy) = any (< 5) [posx-smalx, bigx-posx, posy-smaly, bigy-posy]
+isOuter (V2 smalx smaly, V2 bigx bigy) (V2 posx posy) = any (< 5) [posx-smalx, bigx-posx, posy-smaly, bigy-posy]
 
 solve2 :: Board -> Maybe Int
 solve2 grid = genericBfs goal neighs (startPos, 0)
@@ -50,7 +50,7 @@ solve2 grid = genericBfs goal neighs (startPos, 0)
     goal = (== (goalPos, 0))
     goalPos = head $ portals Map.! "ZZ"
     startPos = head $ portals Map.! "AA"
-    neighs (pos, level) = (map (,level) $ filter ((== '.') . indexWithDefault '#' grid) (susedi pos)) ++ fromMaybe [] (buddy pos level)
+    neighs (pos, level) = map (,level) (filter ((== '.') . indexWithDefault '#' grid) (susedi pos)) ++ fromMaybe [] (buddy pos level)
     buddy pos level = do
       portal <- getPortal grid pos
       let newLevel = level + (if isOuter (bounds grid) pos then (-1) else 1) 

@@ -15,7 +15,7 @@ type IT = [Integer]
 
 solve1 :: IT -> Int
 solve1 xs = length . filter (== 1) $ output where
-  output = concat $ map (fst . flip evaluateUntilHaltWithInput xs) input
+  output = concatMap (fst . flip evaluateUntilHaltWithInput xs) input
   input = [[x, y] | x <- [0..49], y <- [0..49]]
 
 generateMap' :: IT -> Map (V2 Int) Int
@@ -28,8 +28,8 @@ generateMap' xs = grid
 
 solve2 grid = minimumBy (comparing $ sum . fmap abs) . filter good $ cands
   where
-    cands = [(V2 x y) | x <- [0..1200], y <- [0..1200]]
-    good coord = all g [coord, coord + (V2 99 0), coord + (V2 0 99), coord + (V2 99 99)]
+    cands = [V2 x y | x <- [0..1200], y <- [0..1200]]
+    good coord = all g [coord, coord + V2 99 0, coord + V2 0 99, coord + V2 99 99]
     g coord = Map.findWithDefault 0 coord grid == 1
 
 toColor = \case

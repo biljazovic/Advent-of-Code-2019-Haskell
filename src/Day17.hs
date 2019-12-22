@@ -26,7 +26,7 @@ solve1 grid = sum . map product $ filter isCross (Map.keys grid) where
 dirs = [('>', V2 1 0), ('<', V2 (-1) 0), ('v', V2 0 1), ('^', V2 0 (-1))]
 
 solve2 grid = groupedCode where
-  groupedCode = concat $ map g $ group code
+  groupedCode = concatMap g $ group code
   g cs = if length cs == 1 then cs else show $ length cs
   code = fromJust $ go initPos (fromJust $ lookup (grid Map.! initPos) dirs)
   initPos = findInMap (map fst dirs) grid
@@ -36,8 +36,7 @@ solve2 grid = groupedCode where
                         c <- Map.lookup (pos + dir') grid
                         guard (c == '#')
                         go (pos + dir') dir'
-               in do
-                 (('1':) <$> f dir) 
+               in (('1':) <$> f dir) 
                     <|> ((['L','1']++) <$> f (left dir))
                     <|> ((['R','1']++) <$> f (right dir)) 
                     <|> Just []

@@ -7,7 +7,7 @@ import Data.Char
 type IT = [Integer]
 
 program1 :: String
-program1 = unlines $
+program1 = unlines
   [
     "NOT J J",
     "AND A J",
@@ -19,7 +19,7 @@ program1 = unlines $
   ]
 
 program2 :: String
-program2 = unlines $
+program2 = unlines
   [
     "NOT J J",
     "AND A J",

@@ -31,24 +31,23 @@ oppositeTip :: Int -> Int
 oppositeTip x = if x <= 2 then 3 - x else 7 - x
 
 go :: RWS (V2 Int) [Int] ProgramState ()
-go = do
-  forM_ dirs $ \(tip, dir) -> do
-    tell [tip]
-    out <- gets (head . _outputStack)
-    curVisited <- gets _visited
-    modify $ over outputStack tail
-    curPos <- ask
-    let newPos = curPos + dir
-    if out == 0
-       then return ()
-       else do
-         if Map.member newPos curVisited 
-            then return ()
-            else do
-              modify $ over visited (Map.insert newPos out)
-              local (+ dir) go
-         tell [oppositeTip tip]
-         modify $ over outputStack tail
+go = forM_ dirs $ \(tip, dir) -> do
+      tell [tip]
+      out <- gets (head . _outputStack)
+      curVisited <- gets _visited
+      modify $ over outputStack tail
+      curPos <- ask
+      let newPos = curPos + dir
+      if out == 0
+         then return ()
+         else do
+           if Map.member newPos curVisited 
+              then return ()
+              else do
+                modify $ over visited (Map.insert newPos out)
+                local (+ dir) go
+           tell [oppositeTip tip]
+           modify $ over outputStack tail
 
 
 generateMap :: IT -> Map (V2 Int) Int
@@ -57,7 +56,7 @@ generateMap xs = _visited stat where
   (_, stat, input) = runRWS go (V2 0 0) (PS output (Map.singleton (V2 0 0) 1))
 
 solve1 :: Map (V2 Int) Int -> Int
-solve1 mapa = fromJust $ spLength (indexMap Map.! (V2 0 0)) (indexMap Map.! oxygen) graph where
+solve1 mapa = fromJust $ spLength (indexMap Map.! V2 0 0) (indexMap Map.! oxygen) graph where
   (graph, indexMap) = generateGraph mapa
   (oxygen, _) = Map.findMax $ Map.filter (== 2) mapa
 
@@ -67,8 +66,8 @@ solve2 mapa = (+ (-1)) . maximum $ map (length . unLPath) $ spTree (indexMap Map
   (oxygen, _) = Map.findMax $ Map.filter (== 2) mapa
 
 drawPath :: Map (V2 Int) Int -> Map (V2 Int) Int
-drawPath mapa = foldr (\x -> Map.insert x 2) mapa coordPath where
-  path = fromJust $ sp (indexMap Map.! (V2 0 0)) (indexMap Map.! oxygen) graph
+drawPath mapa = foldr (`Map.insert` 2) mapa coordPath where
+  path = fromJust $ sp (indexMap Map.! V2 0 0) (indexMap Map.! oxygen) graph
   coordPath = map (reverseIndexMap Map.!) path
   reverseIndexMap = Map.fromList $ map swap $ Map.toList indexMap
   (graph, indexMap) = generateGraph mapa
