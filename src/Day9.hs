@@ -5,10 +5,10 @@ import IntCode (parse, evaluateUntilHaltWithInput)
 type IT = [Integer]
 
 solve1 :: IT -> [Integer]
-solve1 = fst . evaluateUntilHaltWithInput [1]
+solve1 = evaluateUntilHaltWithInput [1]
 
 solve2 :: IT -> [Integer]
-solve2 = fst . evaluateUntilHaltWithInput [2]
+solve2 = evaluateUntilHaltWithInput [2]
 
 main9 :: IO ()
 main9 = do

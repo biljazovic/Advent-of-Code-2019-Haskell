@@ -36,7 +36,7 @@ program2 = unlines
 solve :: String -> IT -> Integer
 solve program xs = last output
   where
-    output = fst $ evaluateUntilHaltWithInput input xs
+    output = evaluateUntilHaltWithInput input xs
     input = map (fromIntegral . ord) program
 
 main21 :: IO ()

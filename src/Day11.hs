@@ -17,7 +17,7 @@ type RobotState = (V2 Int, V2 Int, Map (V2 Int) Int)
 
 solve :: Integer -> IT -> Map (V2 Int) Integer
 solve startingColor xs = finalMap where
-  output = fst $ evaluateUntilHaltWithInput input xs
+  output = evaluateUntilHaltWithInput input xs
   input = map (fromIntegral . \(pos, _, mapa) -> Map.findWithDefault 0 pos mapa) states
   (_, _, finalMap) = last states
   states = scanl f (V2 0 0, V2 0 (-1), Map.singleton (V2 0 0) startingColor) $ chunksOf 2 output

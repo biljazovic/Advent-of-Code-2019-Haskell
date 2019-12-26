@@ -52,7 +52,7 @@ go = forM_ dirs $ \(tip, dir) -> do
 
 generateMap :: IT -> Map (V2 Int) Int
 generateMap xs = _visited stat where
-  output = map fromIntegral $ fst $ evaluateUntilHaltWithInput (map fromIntegral input) xs
+  output = map fromIntegral $ evaluateUntilHaltWithInput (map fromIntegral input) xs
   (_, stat, input) = runRWS go (V2 0 0) (PS output (Map.singleton (V2 0 0) 1))
 
 solve1 :: Map (V2 Int) Int -> Int

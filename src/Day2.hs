@@ -2,7 +2,7 @@ module Day2 (main2) where
 
 import Data.Sequence (Seq, update, index, fromList)
 import Control.Monad (guard)
-import IntCode (evaluateUntilHaltWithInput, parse, _board)
+import IntCode (run, parse, _board, ExtStatus(..))
 import Data.Foldable (toList)
 
 type IT = [Integer]
@@ -10,7 +10,7 @@ type IT = [Integer]
 evaluate :: Integer -> Integer -> IT -> Integer
 evaluate noun verb xs = ((`index` 0) . _board) xdf where
   seq0 = update 2 verb (update 1 noun (fromList xs))
-  (_, xdf) = evaluateUntilHaltWithInput [] (toList seq0)
+  Halt xdf = run (toList seq0)
 
 solve1 :: IT -> Integer
 solve1 = evaluate 12 2

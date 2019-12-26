@@ -15,14 +15,14 @@ type IT = [Integer]
 
 solve1 :: IT -> Int
 solve1 xs = length . filter (== 1) $ output where
-  output = concatMap (fst . flip evaluateUntilHaltWithInput xs) input
+  output = concatMap (flip evaluateUntilHaltWithInput xs) input
   input = [[x, y] | x <- [0..49], y <- [0..49]]
 
 generateMap' :: IT -> Map (V2 Int) Int
 generateMap' xs = grid 
   where
     grid = Map.fromList $ zip coords output
-    output = map (fromIntegral . head . fst . flip evaluateUntilHaltWithInput xs) input
+    output = map (fromIntegral . head . flip evaluateUntilHaltWithInput xs) input
     coords = map (fmap fromIntegral . \[x,y] -> V2 x y) input
     input = [[x, y] | x <- [0..1200], y <- [0..1200], y `div` 2 < x && x < y `div` 14 * 11]
 

@@ -10,18 +10,18 @@ type IT = [Integer]
 solve1 :: IT -> Integer
 solve1 xs = maximum $ do
   params <- permutations [0 .. 4]
-  let outStack = foldr f [0] params       where
-      f param prevOut = fst $ evaluateUntilHaltWithInput (param : prevOut) xs
+  let outStack = foldr f [0] params where
+      f param prevOut = evaluateUntilHaltWithInput (param : prevOut) xs
   return $ head outStack
 
 solve2 :: IT -> Integer
 solve2 xs = maximum $ do
   [pA, pB, pC, pD, pE] <- permutations [5..9]
-  let outE = fst $ evaluateUntilHaltWithInput (pE : outD) xs
-      outD = fst $ evaluateUntilHaltWithInput (pD : outC) xs
-      outC = fst $ evaluateUntilHaltWithInput (pC : outB) xs
-      outB = fst $ evaluateUntilHaltWithInput (pB : outA) xs
-      outA = fst $ evaluateUntilHaltWithInput (pA : 0 : outE) xs
+  let outE = evaluateUntilHaltWithInput (pE : outD) xs
+      outD = evaluateUntilHaltWithInput (pD : outC) xs
+      outC = evaluateUntilHaltWithInput (pC : outB) xs
+      outB = evaluateUntilHaltWithInput (pB : outA) xs
+      outA = evaluateUntilHaltWithInput (pA : 0 : outE) xs
   return $ head $ reverse outE
 
 main7 :: IO ()

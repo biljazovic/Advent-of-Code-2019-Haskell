@@ -15,7 +15,7 @@ type IT = [Integer]
 
 generateMap' :: IT -> Map (V2 Int) Char
 generateMap' xs = generateMap output where
-  output = map (chr . fromIntegral) . fst $ evaluateUntilHaltWithInput [] xs
+  output = map (chr . fromIntegral) $ evaluateUntilHaltWithInput [] xs
 
 solve1 :: Map (V2 Int) Char -> Int
 solve1 grid = sum . map product $ filter isCross (Map.keys grid) where
@@ -48,4 +48,4 @@ main17 = do
   print $ solve1 grid -- part 1 solution
   print $ solve2 grid -- only generates movement instructions
   sol <- map (fromIntegral . ord) <$> readFile "res/output17" -- generated manually with vim
-  print $ last . fst $ evaluateUntilHaltWithInput sol (2 : tail input) -- part 2 solution
+  print $ last $ evaluateUntilHaltWithInput sol (2 : tail input) -- part 2 solution
