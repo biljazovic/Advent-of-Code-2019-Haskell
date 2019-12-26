@@ -113,3 +113,11 @@ evaluateUntilHaltWithInput inStack xs = go inStack (run xs)
       Out out nxt -> out : go ins nxt
       Halt _ -> []
 
+feed :: ExtStatus -> [Integer] -> ExtStatus
+feed ex [] = ex
+feed (In g) (x : xs) = feed (g x) xs
+
+expect :: Int -> ExtStatus -> ([Integer], ExtStatus)
+expect 0 ex = ([], ex)
+expect n (Out out nxt) = let (rest, final) = expect (n-1) nxt
+                          in (out : rest, final)

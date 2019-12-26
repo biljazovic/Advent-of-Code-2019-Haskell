@@ -1,6 +1,6 @@
 module Day23 (main23) where
 
-import IntCode (run, parse, evaluate, ExtStatus(..), XD(..))
+import IntCode (feed, expect, run, parse, evaluate, ExtStatus(..), XD(..))
 import Util (generateBlackAndWhiteImage)
 import Data.Char
 import Data.List (mapAccumL, find, delete, nub, (\\))
@@ -10,15 +10,6 @@ import Debug.Trace
 import Control.Monad
 
 type IT = [Integer]
-
-feed :: ExtStatus -> [Integer] -> ExtStatus
-feed ex [] = ex
-feed (In g) (x : xs) = feed (g x) xs
-
-expect :: Int -> ExtStatus -> ([Integer], ExtStatus)
-expect 0 ex = ([], ex)
-expect n (Out out nxt) = let (rest, final) = expect (n-1) nxt
-                          in (out : rest, final)
 
 step :: [ExtStatus] -> [(Integer, (Integer, Integer))] -> ([ExtStatus], [(Integer, (Integer, Integer))])
 step st queue = (st1, queue1)
