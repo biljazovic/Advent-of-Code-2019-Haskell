@@ -33,6 +33,7 @@ default-extensions:
 - TemplateHaskell
 - TupleSections
 - ViewPatterns
+- MultiWayIf
 
 executables:
   aoc2019:
